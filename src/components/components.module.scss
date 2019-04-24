@@ -1,0 +1,49 @@
+$md-width: 700px;
+
+.Title {
+    font-size: 2rem;
+
+    @media screen and (max-width: $md-width) {
+        font-size: 1.5rem;
+    }
+}
+
+.Content {
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(100vh - 4rem);
+    padding-top: 6rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    @media screen and (max-width: $md-width) {
+        flex-flow: column;
+        padding-top: 3rem;
+
+        h2 {
+            font-size: 1.3rem;
+        }
+    }
+}
+
+.RouterLink {
+    padding: 1rem;
+    color: black;
+
+    &:hover {
+        text-decoration: none;
+        color: gray;
+        background-color: rgba(250, 250, 259, 0.2);
+    }
+
+    &:active,
+    &.Active {
+        background-color: rgba(250, 250, 259, 0.3);
+    }
+
+    @media (max-width: 803px) {
+        flex: 1;
+    }
+}

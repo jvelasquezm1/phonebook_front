@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import LandingPage from './components/LandingPage';
 import CreateForm from './components/CreateForm';
 import EditForm from './components/EditForm';
