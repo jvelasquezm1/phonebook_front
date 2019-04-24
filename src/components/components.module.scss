@@ -8,10 +8,30 @@ $md-width: 700px;
     }
 }
 
+.ResetPasswordContainer {
+    margin: 0 auto;
+    margin-top: 6rem;
+    max-width: 40em;
+    width: 80%;
+    padding: 2em;
+    box-shadow: 4px 7px 36px 5px rgba(0, 0, 0, 0.29);
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.InputGroup {
+    position: relative;
+    margin: 1rem auto;
+    max-width: 500px;
+}
+
 .FlexJustify {
     width: 100%;
     display: flex;
-    justify-content: space-around
+    justify-content: center
 }
 
 .Input {
@@ -59,4 +79,27 @@ $md-width: 700px;
     @media (max-width: 803px) {
         flex: 1;
     }
+}
+
+.btn_primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    user-select: none;
 }

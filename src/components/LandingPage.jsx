@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Header from './header/Header'
 import { NavLink as Link } from 'react-router-dom'
 import ReactTable from 'react-table'
+import { Icon } from 'react-fa'
 
 import 'react-table/react-table.css'
 import styles from './components.module.scss'
@@ -11,8 +12,8 @@ export default class LandingPage extends Component {
     firstName: '',
     json: [
       {
-        firstName: 'ju',
-        lastName: 'es',
+        firstName: 'test',
+        lastName: 'testN',
         phone: '32132'
       }
     ]
@@ -24,18 +25,29 @@ export default class LandingPage extends Component {
       {
         Header: 'Name',
         accessor: 'firstName',
-        width: 340
+        width: 250
       },
       {
         Header: 'Last Name',
         accessor: 'lastName',
-        width: 340
+        width: 250
       },
       {
         Header: 'Phone Number',
         accessor: 'phone',
-        width: 320
-      }
+        width: 250
+      },
+      {
+        Header: 'Edit',
+        Cell: row => (<Link
+          to='/edit'
+          className={styles.RouterLink}
+          activeClassName={styles.Active}
+        >
+          <Icon name="pencil" />
+        </Link>),
+        width: 250
+      },
     ]
     return (
       <div>
@@ -65,14 +77,7 @@ export default class LandingPage extends Component {
               className={styles.RouterLink}
               activeClassName={styles.Active}
             >
-              <button color="primary" size="lg">{'Create'}</button>
-            </Link>
-            <Link
-              to='/edit'
-              className={styles.RouterLink}
-              activeClassName={styles.Active}
-            >
-              <button color="primary" size="lg">{'Edit'}</button>
+              <button className={`${styles.btn} ${styles.btn_primary}`}>{'Create'}</button>
             </Link>
           </div>
         </div>
