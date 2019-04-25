@@ -13,7 +13,8 @@
     "react-scripts": "3.0.0",
     "react-table": "^6.10.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sweetalert-react": "^0.4.11"
   },
   "scripts": {
     "start": "react-scripts start",
