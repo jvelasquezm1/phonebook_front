@@ -12,18 +12,56 @@ class CreateForm extends Component {
     lastName: '',
     phone: '',
     entries: {},
+    error: '',
+    isValid: false,
+  }
+
+  isValidForm = (firstName, lastName) => {
+    const isValid = firstName !== '' && lastName !== '';
+    if (!isValid) {
+      this.setState({
+        error: 'Please provide a first and last name',
+        isValid: false,
+      });
+    } else {
+      this.setState({
+        error: null,
+        isValid: true,
+      });
+    }
+  }
+
+  isValidPhone = (phone) => {
+    console.log(phone.length)
+    const isValid = phone.match(/^\+\d.{1,1}.\d.{1,1}.\d+/) && phone.length > 12;
+    if (!isValid) {
+      this.setState({
+        error: 'The format for the number must follow "+11 11 111111..."',
+        isValid: false,
+      });
+    } else {
+      this.setState({
+        error: null,
+        isValid: true,
+      });
+    }
   }
   
   onChangeFirstName = (event) => {
+    const { firstName, lastName } = this.state;    
     this.setState({ firstName: event.target.value });
+    this.isValidForm(firstName, lastName);
   }
 
   onChangeLastName = (event) => {
+    const { firstName, lastName } = this.state;
     this.setState({ lastName: event.target.value });
+    this.isValidForm(firstName, lastName);
   }
 
   onChangePhone = (event) => {
     this.setState({ phone: event.target.value });
+    this.isValidPhone(event.target.value);
   }
 
   createEntry = async () => {    
@@ -38,7 +76,7 @@ class CreateForm extends Component {
   }
 
   render () {
-    const { firstName, lastName, phone } = this.state;
+    const { firstName, lastName, phone, isValid, error } = this.state;
     return (
       <div>
         <Header>
@@ -60,6 +98,10 @@ class CreateForm extends Component {
               <div>Phone</div>
               <input className='form-control' placeholder='Phone' value={ phone } onChange={this.onChangePhone} />
             </div>
+            {!isValid &&
+            <div className={styles.InputGroup}>
+              <div>{error}</div>
+            </div>}
             <button type='button' className={`${styles.btn} ${styles.btn_primary}`} onClick={this.createEntry}>
               {'Create'}
             </button>
