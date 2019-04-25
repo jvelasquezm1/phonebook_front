@@ -26,7 +26,11 @@ class LandingPage extends Component {
   
   onChangeFirstName = (event) => {
     this.setState({ firstName: event.target.value });
-  }
+  };
+  
+  setEntryId = (entryId) => {
+    window.localStorage.entryId = entryId;
+  };
 
   render () {
     const { firstName } = this.state
@@ -53,6 +57,7 @@ class LandingPage extends Component {
           to='/edit'
           className={styles.RouterLink}
           activeClassName={styles.Active}
+          onClick={this.setEntryId(row.original._id)}
         >
           <Icon name="pencil" />
         </Link>),
