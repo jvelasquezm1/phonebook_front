@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import Header from './header/Header'
 import styles from './components.module.scss'
 
-export default class EditForm extends Component {
+import { connect } from 'react-redux';
+import * as EntriesAction from '../store/actions/entries.actions';
+
+class EditForm extends Component {
   render () {
     return (
       <div>
@@ -34,3 +37,17 @@ export default class EditForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  entries: state.entries.entries,
+  isFetchingEntries: state.entries.isFetchingEntries,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchEntries: () => dispatch(EntriesAction.fetchEntries()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EditForm);

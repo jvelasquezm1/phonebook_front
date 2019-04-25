@@ -4,23 +4,33 @@ import { NavLink as Link } from 'react-router-dom'
 import ReactTable from 'react-table'
 import { Icon } from 'react-fa'
 
+import { connect } from 'react-redux';
+import * as EntriesAction from '../store/actions/entries.actions';
+
 import 'react-table/react-table.css'
 import styles from './components.module.scss'
 
-export default class LandingPage extends Component {
+class LandingPage extends Component {
   state = {
     firstName: '',
-    json: [
-      {
-        firstName: 'test',
-        lastName: 'testN',
-        phone: '32132'
-      }
-    ]
+  }
+
+  componentDidMount() {
+    this.getEntries();
+  }
+
+  getEntries = () => {
+    const { fetchEntries } = this.props;
+    fetchEntries();
+  };
+  
+  onChangeFirstName = (event) => {
+    this.setState({ firstName: event.target.value });
   }
 
   render () {
     const { firstName } = this.state
+    const { entries } = this.props
     const columns = [
       {
         Header: 'Name',
@@ -60,9 +70,10 @@ export default class LandingPage extends Component {
             value={firstName}
             placeholder='First name'
             className={styles.Input}
+            onChange={this.onChangeFirstName}
           />
           <ReactTable
-            data={this.state.json}
+            data={entries}
             columns={columns}
             defaultPageSize={3}
             filterable
@@ -85,3 +96,17 @@ export default class LandingPage extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  entries: state.entries.entries,
+  isFetchingEntries: state.entries.isFetchingEntries,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchEntries: () => dispatch(EntriesAction.fetchEntries()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LandingPage);

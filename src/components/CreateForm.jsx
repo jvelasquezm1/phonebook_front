@@ -2,8 +2,43 @@ import React, { Component } from 'react'
 import Header from './header/Header'
 import styles from './components.module.scss'
 
-export default class CreateForm extends Component {
+import { connect } from 'react-redux';
+import EntriesService from '../services/entries.services';
+import * as EntriesAction from '../store/actions/entries.actions';
+
+class CreateForm extends Component {
+  state = {
+    firstName: '',
+    lastName: '',
+    phone: '',
+    entries: {},
+  }
+  
+  onChangeFirstName = (event) => {
+    this.setState({ firstName: event.target.value });
+  }
+
+  onChangeLastName = (event) => {
+    this.setState({ lastName: event.target.value });
+  }
+
+  onChangePhone = (event) => {
+    this.setState({ phone: event.target.value });
+  }
+
+  createEntry = async () => {    
+    const { firstName, lastName, phone } = this.state;
+    const entries = { firstName, lastName, phone };
+    try {
+      await EntriesService.addEntries(entries);
+      console.log('ok')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   render () {
+    const { firstName, lastName, phone } = this.state;
     return (
       <div>
         <Header>
@@ -15,17 +50,17 @@ export default class CreateForm extends Component {
             <h3>Create entry:</h3>
             <div className={styles.InputGroup}>
               <div>First Name</div>
-              <input className='form-control' placeholder='First Name' />
+              <input className='form-control' placeholder='First Name' value={ firstName } onChange={this.onChangeFirstName} />
             </div>
             <div className={styles.InputGroup}>
               <div>Last Name</div>
-              <input className='form-control' placeholder='Last Name' />
+              <input className='form-control' placeholder='Last Name' value={ lastName } onChange={this.onChangeLastName} />
             </div>
             <div className={styles.InputGroup}>
               <div>Phone</div>
-              <input className='form-control' placeholder='Phone' />
+              <input className='form-control' placeholder='Phone' value={ phone } onChange={this.onChangePhone} />
             </div>
-            <button type='button' className={`${styles.btn} ${styles.btn_primary}`}>
+            <button type='button' className={`${styles.btn} ${styles.btn_primary}`} onClick={this.createEntry}>
               {'Create'}
             </button>
           </div>
@@ -34,3 +69,17 @@ export default class CreateForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  entries: state.entries.entries,
+  isFetchingEntries: state.entries.isFetchingEntries,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchEntries: () => dispatch(EntriesAction.fetchEntries()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CreateForm);
