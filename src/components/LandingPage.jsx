@@ -12,7 +12,7 @@ import styles from './components.module.scss'
 
 class LandingPage extends Component {
   state = {
-    firstName: '',
+    searchField: '',
   }
 
   componentDidMount() {
@@ -25,7 +25,7 @@ class LandingPage extends Component {
   };
   
   onChangeFirstName = (event) => {
-    this.setState({ firstName: event.target.value });
+    this.setState({ searchField: event.target.value });
   };
   
   setEntryId = (entryId) => {
@@ -33,8 +33,11 @@ class LandingPage extends Component {
   };
 
   render () {
-    const { firstName } = this.state
-    const { entries } = this.props
+    const { searchField } = this.state
+    let { entries } = this.props
+    entries = entries.filter(entry => entry.firstName.toUpperCase().includes(searchField.toUpperCase()) 
+    || entry.lastName.toUpperCase().includes(searchField.toUpperCase())
+    || entry.phone.includes(searchField));
     const columns = [
       {
         Header: 'Name',
@@ -72,21 +75,23 @@ class LandingPage extends Component {
         <div className={`${styles.Content}`}>
           <input
             type='text'
-            value={firstName}
-            placeholder='First name'
+            value={searchField}
+            placeholder='Search'
             className={styles.Input}
             onChange={this.onChangeFirstName}
           />
-          <ReactTable
-            data={entries}
-            columns={columns}
-            defaultPageSize={3}
-            filterable
-            showPagination
-            defaultFilterMethod={(filter, row) =>
-              String(row[filter.id]).includes(filter.value)
-            }
-          />
+          {searchField !== '' &&
+            <ReactTable
+              data={entries}
+              columns={columns}
+              defaultPageSize={3}
+              filterable
+              showPagination
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]).includes(filter.value)
+              }
+            />
+          }
           <div className={styles.FlexJustify}>
             <Link
               to='/create'
