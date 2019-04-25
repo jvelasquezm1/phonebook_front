@@ -35,9 +35,13 @@ class LandingPage extends Component {
   render () {
     const { searchField } = this.state
     let { entries } = this.props
+    if (entries) {
     entries = entries.filter(entry => entry.firstName.toUpperCase().includes(searchField.toUpperCase()) 
     || entry.lastName.toUpperCase().includes(searchField.toUpperCase())
     || entry.phone.includes(searchField));
+    } else {
+      entries = [];
+    };
     const columns = [
       {
         Header: 'Name',

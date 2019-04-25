@@ -142,6 +142,7 @@ class CreateForm extends Component {
               type='button'
               className={`${styles.btn} ${styles.btn_primary}`}
               onClick={this.createEntry}
+              disabled={!isValid}
             >
               {'Create'}
             </button>
