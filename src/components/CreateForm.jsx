@@ -19,11 +19,14 @@ class CreateForm extends Component {
     successMessage: ''
   }
 
-  isValidForm = (firstName, lastName) => {
-    const isValid = firstName !== '' && lastName !== ''
-    if (!isValid) {
+  isValidForm = (firstName, lastName) => firstName !== '' && lastName !== ''
+
+  isValidPhone = phone => phone.match(/^\+\d.{1,1}.\d.{1,1}.\d+/) && phone.length > 12
+
+  isValidAllFields = (valid, validPhone) => {
+    if(!valid || !validPhone || validPhone === null){
       this.setState({
-        error: 'Please provide a first and last name',
+        error: 'Please fill all fields and the format for the number must follow "+11 11 111111..."',
         isValid: false
       })
     } else {
@@ -31,40 +34,31 @@ class CreateForm extends Component {
         error: null,
         isValid: true
       })
-    }
+  }
   }
 
-  isValidPhone = phone => {
-    console.log(phone.length)
-    const isValid = phone.match(/^\+\d.{1,1}.\d.{1,1}.\d+/) && phone.length > 12
-    if (!isValid) {
-      this.setState({
-        error: 'The format for the number must follow "+11 11 111111..."',
-        isValid: false
-      })
-    } else {
-      this.setState({
-        error: null,
-        isValid: true
-      })
-    }
-  }
-
-  onChangeFirstName = event => {
-    const { firstName, lastName } = this.state
+  onChangeFirstName = async event => {
+    const { firstName, lastName, phone } = this.state
     this.setState({ firstName: event.target.value })
-    this.isValidForm(firstName, lastName)
+    const validPhone = await this.isValidPhone(phone)
+    const valid = await this.isValidForm(firstName, lastName)
+    this.isValidAllFields(valid, validPhone);
   }
 
-  onChangeLastName = event => {
-    const { firstName, lastName } = this.state
+  onChangeLastName = async event => {
+    const { firstName, lastName, phone } = this.state
     this.setState({ lastName: event.target.value })
-    this.isValidForm(firstName, lastName)
+    const validPhone = await this.isValidPhone(phone)
+    const valid = await this.isValidForm(firstName, lastName)
+    this.isValidAllFields(valid, validPhone);
   }
 
-  onChangePhone = event => {
+  onChangePhone = async event => {
+    const { firstName, lastName } = this.state
     this.setState({ phone: event.target.value })
-    this.isValidPhone(event.target.value)
+    const validPhone = await this.isValidPhone(event.target.value)
+    const valid = await this.isValidForm(firstName, lastName)
+    this.isValidAllFields(valid, validPhone);
   }
 
   createEntry = async () => {
