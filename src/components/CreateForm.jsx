@@ -21,7 +21,7 @@ class CreateForm extends Component {
 
   isValidForm = (firstName, lastName) => firstName !== '' && lastName !== ''
 
-  isValidPhone = phone => phone.match(/^\+\d.{1,1}.\d.{1,1}.\d+/) && phone.length > 12
+  isValidPhone = phone => phone.match(/^\+\d.{1,1}\s\d.{1,1}\s\d+/) && phone.length > 12
 
   isValidAllFields = (valid, validPhone) => {
     if(!valid || !validPhone || validPhone === null){
@@ -57,6 +57,7 @@ class CreateForm extends Component {
     const { firstName, lastName } = this.state
     this.setState({ phone: event.target.value })
     const validPhone = await this.isValidPhone(event.target.value)
+    console.log(validPhone)
     const valid = await this.isValidForm(firstName, lastName)
     this.isValidAllFields(valid, validPhone);
   }
