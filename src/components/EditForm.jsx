@@ -118,7 +118,7 @@ class EditForm extends Component {
     return (
       <div>
         <Header>
-          <h1 className={styles.Title}>Phonebook</h1>
+          <h1 className={styles.Title} onClick={this.closeAlert}>Phonebook</h1>
         </Header>
 
         <form>
@@ -156,6 +156,7 @@ class EditForm extends Component {
             <button
               type='button'
               className={`${styles.btn} ${styles.btn_primary}`}
+              disabled={!isValid}
               onClick={this.updateEntry}
             >
               {'Update'}

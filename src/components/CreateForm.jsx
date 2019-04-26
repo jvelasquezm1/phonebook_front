@@ -97,7 +97,7 @@ class CreateForm extends Component {
     return (
       <div>
         <Header>
-          <h1 className={styles.Title}>Phonebook</h1>
+          <h1 className={styles.Title} onClick={this.closeAlert}>Phonebook</h1>
         </Header>
 
         <form>

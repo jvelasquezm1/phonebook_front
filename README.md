@@ -43,7 +43,7 @@ docker run -p 8080:8080 phonebook_front
 If you want to deploy the full architecture of the phonebook locate the root folder of the project phonebook_back and run:
 
 ```sh
-cd performance_explorer_backend
+cd phonebook_back
 docker-compose up
 ```
 

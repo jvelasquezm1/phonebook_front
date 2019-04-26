@@ -74,7 +74,7 @@ class LandingPage extends Component {
     return (
       <div>
         <Header>
-          <h1 className={styles.Title}>Phonebook</h1>
+          <h1 className={styles.Title} onClick={this.closeAlert}>Phonebook</h1>
         </Header>
         <div className={`${styles.Content}`}>
           <div className={styles.ContentInput}>
@@ -91,7 +91,7 @@ class LandingPage extends Component {
             <ReactTable
               data={entries}
               columns={columns}
-              defaultPageSize={3}
+              defaultPageSize={5}
               filterable
               showPagination
               defaultFilterMethod={(filter, row) =>

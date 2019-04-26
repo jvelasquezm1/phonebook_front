@@ -2,6 +2,7 @@ $md-width: 700px;
 
 .Title {
     font-size: 2rem;
+    cursor: pointer;
 
     @media screen and (max-width: $md-width) {
         font-size: 1.5rem;
