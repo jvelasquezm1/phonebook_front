@@ -77,13 +77,16 @@ class LandingPage extends Component {
           <h1 className={styles.Title}>Phonebook</h1>
         </Header>
         <div className={`${styles.Content}`}>
-          <input
-            type='text'
-            value={searchField}
-            placeholder='Search'
-            className={styles.Input}
-            onChange={this.onChangeFirstName}
-          />
+          <div className={styles.ContentInput}>
+            <input
+              type='text'
+              value={searchField}
+              placeholder='Search'
+              className={styles.Input}
+              onChange={this.onChangeFirstName}
+            />
+            <Icon name="search" className={styles.P1}/>
+          </div>
           {searchField !== '' &&
             <ReactTable
               data={entries}

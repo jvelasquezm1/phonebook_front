@@ -55,9 +55,11 @@ class CreateForm extends Component {
 
   onChangePhone = async event => {
     const { firstName, lastName } = this.state
-    this.setState({ phone: event.target.value })
+    const numberRegex = /^[0-9*#+ ]+$/;
+    if (event.target.value === '' || numberRegex.test(event.target.value)) {
+      this.setState({ phone: event.target.value })
+   }
     const validPhone = await this.isValidPhone(event.target.value)
-    console.log(validPhone)
     const valid = await this.isValidForm(firstName, lastName)
     this.isValidAllFields(valid, validPhone);
   }
