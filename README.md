@@ -1,68 +1,68 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Phonebook Backend
+***
+Phonebook is a web tool made to provide a set of entries that contain a first name, last name, and a phone number.
 
-## Available Scripts
+This tool will allow you to:
 
-In the project directory, you can run:
+  - Add new entries
+  - Edit your entries
+***
+### Architecture
+This application uses:
 
-### `npm start`
+* [Node.js] 
+* [Express]
+* [MongoDB]
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Deployed at: http://ec2-18-216-219-102.us-east-2.compute.amazonaws.com:8080/
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+***
+### Installation
 
-### `npm test`
+Requires [Node.js](https://nodejs.org/) v4+ to run.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone the repository, install the dependencies and start the server.
 
-### `npm run build`
+```sh
+$ git clone https://github.com/jvelasquezm1/phonebook_back
+$ cd phonebook_back
+$ npm install
+$ npm start
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Then, configure your environment variables creating a file name .env on the root directory:
+ - MONGO_URL: The url of the mongo instance that will store your data or you can use it locally 'mongodb://localhost:27017/phonebook'
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+The app will run in port 3000.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+***
+### Open End-points
 
-### `npm run eject`
+The REST service provide the following end-points:
+  - [GET] /readEntries: Search in mongoDB collection all the entries
+  - [GET] /getEntryById/:entryId: Search in mongoDB collection the entry according to the ID
+  - [POST] /addEntries: Creates a new entry
+    > {"firstName": "name", "lastname": "lastname", "phone": "phone"}
+  - [PUT] /editEntries: Search in mongoDB the entry id and update the fields
+    > {"id": "id", "firstName": "name", "lastname": "lastname", "phone": "phone"}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Docker
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+If you want to deploy phonebook front in a Docker Container run:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+docker build -t phonebook_front .
+docker run -p 8080:8080 phonebook_front
+```
 
-## Learn More
+If you want to deploy the full architecture of the phonebook locate the root folder of the project phonebook_back and run:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+cd performance_explorer_backend
+docker-compose up
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This will create 2 containers:
+- phonebook_back (exposed on port 3000 from localhost)
+- phonebook_front (exposed on port 8080 from localhost)
